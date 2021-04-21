@@ -1,6 +1,8 @@
 package edu.utn.Parcial.Service;
 
+import edu.utn.Parcial.Domain.Manager;
 import edu.utn.Parcial.Domain.Person;
+import edu.utn.Parcial.Domain.Player;
 import edu.utn.Parcial.Exception.AlreadyExistException;
 import edu.utn.Parcial.Exception.NotFoundException;
 import edu.utn.Parcial.Repository.PersonRepository;
@@ -11,6 +13,7 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PersonService {
@@ -43,6 +46,7 @@ public class PersonService {
         if(this.personRepository.existsById(person.getIdPerson())){
             throw new AlreadyExistException("User already exist.");
         }else {
+
             this.personRepository.save(person);
         }
     }
@@ -54,6 +58,29 @@ public class PersonService {
         else {
             this.personRepository.delete(person);
         }
+    }
+
+    public void addOrRefreshPlayerByManager(Integer idManager, Integer idPlayer) {
+        Person managerOptional = this.getById(idManager);
+        if(managerOptional != null){
+            Manager manager = (Manager)managerOptional;
+            Optional<Player> player = manager.findPlayer(idPlayer);
+            if(player != null){
+                Player player1 = player.get();
+                manager.refreshWeight(player1.getCurrency().getAmount());
+                manager.refreshTotalAmount(player1.getCurrency().getAmount(),player1.getCurrency().getCurrency());
+                this.personRepository.save(manager);
+            }else{
+                throw new NotFoundException("Player not found by the manager");
+            }
+        }else{
+            throw new NotFoundException("Manager cannot exist");
+        }
+
+    }
+
+    public void refreshPerson(Person friend) {
+        this.personRepository.save(friend);
     }
 
     //endregion

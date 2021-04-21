@@ -30,4 +30,10 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage());
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getHttpStatus());
     }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Object> runTimeException(final RuntimeException r, WebRequest request){
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST,r.getLocalizedMessage());
+        return new ResponseEntity<Object>(apiError, new HttpHeaders(),apiError.getHttpStatus());
+    }
 }

@@ -26,11 +26,11 @@ public class Player extends Person{
     @Column(name = "HEIGHT")
     private Float height;
 
-    @NotNull
+
     @Column(name = "GOALS")
     private Integer goals;
 
-    @NotNull
+
     @Column(name = "MINUTES_PLAYED")
     private Float minutesPlayed;
 
@@ -40,10 +40,16 @@ public class Player extends Person{
 
     @OneToOne
     @JoinColumn(name="ID_CURRENCY", referencedColumnName = "ID_CURRENCY",nullable=false)
-    private Currency currency;
+    public Currency currency;
 
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name="ID_PERSON", insertable = false,updatable = false, referencedColumnName = "ID_PERSON",nullable=false)
     private Manager manager;
+
+
+    @Override
+    public PersonType PersonType() {
+        return PersonType.PLAYER;
+    }
 }

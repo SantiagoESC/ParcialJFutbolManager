@@ -2,21 +2,28 @@ package edu.utn.Parcial.Domain;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.AccessType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-@Data
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY,property = "type",visible = true)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "typePerson",visible = true)
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Manager.class,name = "MANAGER"),
-        @JsonSubTypes.Type(value = Player.class,name = "PLAYER")
-})
+        @JsonSubTypes.Type(value = Player.class,name = "PLAYER"),
+        @JsonSubTypes.Type(value = Friend.class,name = "FRIEND"),
 
+})
+@AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Data
+@Entity(name = "Person")
 public abstract class Person {
 
 
@@ -32,4 +39,15 @@ public abstract class Person {
     @NotNull(message = "The field weight is required")
     @Column(name = "LAST_NAME")
     private String  lastName;
+
+    @AccessType(AccessType.Type.PROPERTY)
+    public  abstract PersonType PersonType();
+
+    @OneToOne
+    @JoinColumn(name = "birthdayPerson", referencedColumnName = "ID_BIRTHDAY")
+    private Birthday myBirthday;
+
+    @ManyToMany
+    private Set<Birthday> birthdayList = new HashSet<>();
+
 }

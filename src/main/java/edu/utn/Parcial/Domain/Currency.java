@@ -20,11 +20,9 @@ public class Currency {
     @Column(name = "ID_CURRENCY")
     private Integer idCurrency;
 
-    @NotNull(message = "The field currency is required")
     @Column(name = "CURRENCY")
     private String currency;
 
-    @NotNull(message = "The field amount is required")
     @Column(name = "AMOUNT")
     private Float  amount;
 
