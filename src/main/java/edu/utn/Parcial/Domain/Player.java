@@ -2,7 +2,9 @@ package edu.utn.Parcial.Domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import edu.utn.Parcial.Domain.enums.PersonType;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +17,7 @@ import java.util.Date;
 
 @NoArgsConstructor
 @Data
+@Builder
 @Entity(name = "PLAYER")
 public class Player extends Person{
 

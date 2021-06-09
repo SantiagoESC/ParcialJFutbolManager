@@ -1,4 +1,4 @@
-package edu.utn.Parcial.Domain;
+package edu.utn.Parcial.Domain.enums;
 
 public enum TypeCurrency {
     EUROS("Euros"),

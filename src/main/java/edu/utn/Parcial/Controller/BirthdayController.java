@@ -3,7 +3,7 @@ package edu.utn.Parcial.Controller;
 import edu.utn.Parcial.Domain.Birthday;
 
 import edu.utn.Parcial.Domain.Person;
-import edu.utn.Parcial.Domain.PersonType;
+import edu.utn.Parcial.Domain.enums.PersonType;
 import edu.utn.Parcial.Service.BirthdayService;
 import edu.utn.Parcial.Service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +49,7 @@ public class BirthdayController {
         }
         if(friend.PersonType().equals(PersonType.FRIEND)){
             friend.getBirthdayList().add(birthday);
-            birthday.getGuestsList().add(friend);
+            //birthday.getGuestsList().add(friend);
             this.birthdayService.refreshBirthday(birthday);
             this.personService.refreshPerson(friend);
         }

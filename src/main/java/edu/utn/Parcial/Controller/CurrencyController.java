@@ -1,51 +1,46 @@
 package edu.utn.Parcial.Controller;
 
 import edu.utn.Parcial.Domain.Currency;
+import edu.utn.Parcial.Domain.dto.request.CurrencyRequestDTO;
+import edu.utn.Parcial.Domain.dto.response.CurrencyResponseDTO;
+import edu.utn.Parcial.Service.ChangeHouseService;
 import edu.utn.Parcial.Service.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/currency")
 public class CurrencyController {
-    //region properties
-    private CurrencyService currencyService;
-    //endregion
+    private ChangeHouseService changeHouseService;
 
-    //region Constructor
     @Autowired
-    public CurrencyController(CurrencyService currencyService){
-        this.currencyService = currencyService;
-    }
-    //endregion
-
-    //region GET
-    @GetMapping("/")
-    public List<Currency> getAll(){
-        return this.currencyService.getAll();
+    public CurrencyController(ChangeHouseService changeHouseService) {
+        changeHouseService = changeHouseService;
     }
 
-    @GetMapping("/{id}")
-    public Currency getById(@PathVariable("id") Integer id){
-
-        return this.currencyService.getById(id);
-    }
-    @PostMapping
-    public void addCurrency(@RequestBody Currency currency){
-
-        this.currencyService.addCurrency(currency);
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CurrencyResponseDTO> addCurrency(@Valid CurrencyRequestDTO currency){
+        return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/{id}")
-    public void deletePerson(@PathVariable("id") Integer id){
-        Currency currency = this.getById(id);
-        if(currency != null) {
-            this.currencyService.deleteCurrency(currency);
-        }
+    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CurrencyResponseDTO> getCurrency(@Valid CurrencyRequestDTO currency){
+        return ResponseEntity.ok().build();
     }
 
+    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CurrencyResponseDTO> getCurrencyById(@Valid CurrencyRequestDTO currency){
+        return ResponseEntity.ok().build();
+    }
 
-    //endregion
+    @DeleteMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CurrencyResponseDTO> deleteCurrencyById(@Valid CurrencyRequestDTO currency){
+        return ResponseEntity.ok().build();
+    }
+
 }

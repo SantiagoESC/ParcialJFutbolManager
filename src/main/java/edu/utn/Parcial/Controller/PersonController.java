@@ -1,15 +1,12 @@
 package edu.utn.Parcial.Controller;
 
-import edu.utn.Parcial.Domain.Manager;
+import edu.utn.Parcial.Domain.PaginationResponse;
 import edu.utn.Parcial.Domain.Person;
-import edu.utn.Parcial.Domain.PersonType;
-import edu.utn.Parcial.Domain.Player;
 import edu.utn.Parcial.Service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -35,9 +32,10 @@ public class PersonController {
     //endregion
 
     //region GET
-    @GetMapping("/")
-    public List<Person> getAll(){
-        return this.personService.getAll();
+    @GetMapping
+    public List<Person> getAll(@RequestParam(value = "size", defaultValue = "20") Integer size, //elementos por paginas
+                               @RequestParam(value="page", defaultValue="0") Integer page)  { //pagina en la que estas parado
+        return personService.getAll(page, size);
     }
 
     @GetMapping("/{id}")

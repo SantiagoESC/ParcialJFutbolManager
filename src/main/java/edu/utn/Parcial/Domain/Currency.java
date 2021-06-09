@@ -6,13 +6,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@JsonTypeName("currency")
-@Entity(name = "currency")
+@JsonTypeName("CURRENCY")
+@Entity(name = "CURRENCY")
 public class Currency {
 
     @Id
@@ -23,9 +25,12 @@ public class Currency {
     @Column(name = "CURRENCY")
     private String currency;
 
-    @Column(name = "AMOUNT")
+    /*@Column(name = "AMOUNT")
     private Float  amount;
-
+*/
+    @Column(name = "AMOUNT")
+    @Digits(integer=9,fraction=0)
+    private BigDecimal amount;
 
     @OneToOne
     @JoinColumn(name="ID_PERSON", referencedColumnName = "ID_PERSON",nullable=false)

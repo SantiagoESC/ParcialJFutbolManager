@@ -14,7 +14,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity(name = "Birthday")
+@Entity(name = "BIRTHDAY")
 public class Birthday {
 
     @Id
@@ -29,6 +29,6 @@ public class Birthday {
 
     //Max 10
     @ManyToMany
-    private Set<Person> guestsList = new HashSet<>();
+    private Set<Player> guestsList = new HashSet<>();
 
 }

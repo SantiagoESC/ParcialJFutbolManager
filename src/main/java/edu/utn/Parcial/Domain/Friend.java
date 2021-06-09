@@ -1,16 +1,18 @@
 package edu.utn.Parcial.Domain;
 
+import edu.utn.Parcial.Domain.enums.PersonType;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity
+@Builder
+@Entity(name = "FRIEND")
 public class Friend extends Person {
 
 
